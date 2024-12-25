@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Advisor</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(120deg, #6a11cb, #2575fc);
+            color: #fff;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        form {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 20px;
+            flex: 1;
+            min-width: 300px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        label {
+            display: inline-block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        input[type="checkbox"] {
+            width: auto;
+            margin-right: 8px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .checkbox-group div {
+            flex: 1 1 calc(50% - 15px);
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            background: #ff5722;
+            color: #fff;
+            cursor: pointer;
+            transition: background 0.3s ease-in-out;
+        }
+
+        button:hover {
+            background: #e64a19;
+        }
+
+        .error-message {
+            color: #ffcccc;
+            font-size: 0.9rem;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            form {
+                min-width: 100%;
+            }
+
+            .checkbox-group div {
+                flex: 1 1 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Academic Advisor</h1>
+    <div class="container">
+        <!-- Form -->
+        <form action="/review" method="post" onsubmit="return validateGPA();">
+            <label for="level">Year Level:</label>
+            <select id="level" name="level" required>
+                <option value="1">Year 2</option>
+            </select>
+
+            <label for="gpa">GPA:</label>
+            <input type="number" step="0.01" min="0" max="4" id="gpa" name="gpa" required>
+            <p id="gpa-error" style="color: red; display: none;">Error: GPA cannot be zero.</p>
+
+            <label  style="color: #000000;" for="courses"><h3>Select Courses:</h3></label>
+            <div>
+                <input type="checkbox" name="courses" value="CS201"> Discrete Structures<br>
+                <input type="checkbox" name="courses" value="CS241"> Object-Oriented Programming<br>
+                <input type="checkbox" name="courses" value="HUM232"> Technical Writing<br>
+                <input type="checkbox" name="courses" value="IS221"> Project Management<br>
+                <input type="checkbox" name="courses" value="MATH201"> Mathematics III<br>
+                <input type="checkbox" name="courses" value="HUM231"> Business Administration<br>
+                <input type="checkbox" name="courses" value="EE201"> Digital Signal Processing<br>
+                <input type="checkbox" name="courses" value="IS201"> Foundations of Information Systems<br>
+            </div>
+
+            <label style="color: #000000;" for="previous_courses"><h3>Courses Passed in Previous Year:</h3></label>
+            <div>
+                <input type="checkbox" name="previous_courses" value="MATH102"> Mathematics II<br>
+                <input type="checkbox" name="previous_courses" value="CS141"> Programming Fundamentals<br>
+                <input type="checkbox" name="previous_courses" value="HUM111"> English Language I<br>
+                <input type="checkbox" name="previous_courses" value="IT101"> IT Fundamentals<br>
+            </div>
+
+            <p class="error-message">* Maximum allowed hours per semester is 18 hours.</p>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        function validateGPA() {
+            const gpaInput = document.getElementById("gpa");
+            const errorMessage = document.getElementById("gpa-error");
+
+            if (parseFloat(gpaInput.value) === 0) {
+                errorMessage.style.display = "block";
+                return false; // Prevent form submission
+            }
+
+            errorMessage.style.display = "none";
+            return true; // Allow form submission
+        }
+    </script>
+</body>
+
+</html>

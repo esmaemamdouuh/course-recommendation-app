@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recommendations</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.8;
+            background: linear-gradient(120deg, #6a11cb, #2575fc);
+            color: #fff;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* Title Styling */
+        h1,
+        h3 {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            color: #fff;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            margin-top: 10px;
+        }
+
+        /* List Styling */
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+            width: 100%;
+            max-width: 600px;
+            animation: slideUp 1s ease-in-out;
+        }
+
+        li {
+            background: rgba(255, 255, 255, 0.1);
+            margin: 10px 0;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            color: #fff;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        li:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-5px);
+        }
+
+        /* Paragraph Styling */
+        p {
+            font-size: 1.1rem;
+            margin: 15px 0;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Highlight Numbers */
+        p span {
+            color: #ffcc00;
+            font-weight: bold;
+        }
+
+        /* Back to Home Link */
+        a {
+            text-decoration: none;
+            font-size: 1.2rem;
+            color: #ff5722;
+            font-weight: bold;
+            padding: 12px 25px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            transition: background 0.3s ease, color 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            margin-top: 20px;
+        }
+
+        a:hover {
+            background: rgba(255, 255, 255, 0.3);
+            color: #fff;
+        }
+
+        /* Recommendations Section */
+        h2 {
+            margin-top: 30px;
+            font-size: 1.8rem;
+            color: #ffcc00;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            h3 {
+                font-size: 1.6rem;
+            }
+
+            li {
+                font-size: 1rem;
+            }
+
+            a {
+                font-size: 1rem;
+                padding: 10px 20px;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <h1>Eligible Courses</h1>
+    {% if valid_courses %}
+    <h3>Courses You Can Register For:</h3>
+    <ul>
+        {% for course in valid_courses %}
+        <li>{{ course }}</li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No eligible courses for registration based on your selection.</p>
+    {% endif %}
+
+    {% if invalid_courses %}
+    <h3>Courses You Cannot Register For:</h3>
+    <ul>
+        {% for course in invalid_courses %}
+        <li>{{ course }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <p>Total Hours: {{ total_hours }}</p>
+    <p>Your GPA: {{ gpa }}</p>
+    <a href="/">Back to Home</a>
+    <h2>Personalized Recommendations:</h2>
+    <p>{{ recommendations }}</p>
+</body>
+
+</html>
